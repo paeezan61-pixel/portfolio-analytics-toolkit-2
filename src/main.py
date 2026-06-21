@@ -1,7 +1,5 @@
 import matplotlib.pyplot as plt
 
-import matplotlib.pyplot as plt
-
 from data_loader import download_prices
 
 from metrics import (
@@ -58,9 +56,7 @@ benchmark_growth = portfolio_growth(
 mdd = max_drawdown(
     growth
 )
-portfolio_sr = sharpe_ratio(
-    portfolio_ret
-)
+
 
 portfolio_vol = volatility(
     portfolio_ret
@@ -88,7 +84,7 @@ print(f"{portfolio_vol:.2%}")
 print("\nMaximum Drawdown:")
 print(f"{mdd:.2%}")
 
-print("\nCAGR:")
+print("\nPortfolio CAGR:")
 print(f"{portfolio_cagr:.2%}")
 
 print("\nCorrelation Matrix:")
@@ -100,6 +96,11 @@ print(f"{benchmark_cagr:.2%}")
 plt.figure(figsize=(6, 5))
 
 plt.imshow(corr)
+
+plt.savefig(
+    "docs/images/correlation-heatmap.png",
+    bbox_inches="tight"
+)
 
 plt.colorbar()
 
@@ -120,8 +121,26 @@ plt.show()
 plt.figure(figsize=(12, 5))
 
 plt.subplot(1, 2, 1)
-growth.plot()
-plt.title("Portfolio Growth")
+
+plt.plot(
+    growth.index,
+    growth,
+    label="Portfolio"
+)
+
+plt.plot(
+    benchmark_growth.index,
+    benchmark_growth,
+    label="SPY"
+)
+
+plt.title("Portfolio vs Benchmark")
+plt.legend()
+
+plt.savefig(
+    "docs/images/portfolio-vs-benchmark.png",
+    bbox_inches="tight"
+)
 
 plt.subplot(1, 2, 2)
 plt.pie(
@@ -129,6 +148,12 @@ plt.pie(
     labels=tickers,
     autopct="%1.1f%%"
 )
+
+plt.savefig(
+    "docs/images/allocation-chart.png",
+    bbox_inches="tight"
+)
+
 plt.title("Portfolio Allocation")
 
 plt.tight_layout()
