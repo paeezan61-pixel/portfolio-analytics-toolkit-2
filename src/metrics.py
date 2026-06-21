@@ -37,3 +37,14 @@ def beta(portfolio_returns, benchmark_returns):
         /
         benchmark_returns.var()
     )
+
+def alpha(
+    portfolio_cagr,
+    benchmark_cagr,
+    beta
+):
+    return (
+        portfolio_cagr
+        - beta * benchmark_cagr
+    )
+
