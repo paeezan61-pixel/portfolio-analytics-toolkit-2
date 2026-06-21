@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
 
+import matplotlib.pyplot as plt
+
 from data_loader import download_prices
 
 from metrics import (
@@ -7,7 +9,8 @@ from metrics import (
     sharpe_ratio,
     max_drawdown,
     volatility,
-    cagr
+    cagr,
+    correlation_matrix
 )
 
 from portfolio import (
@@ -51,6 +54,10 @@ portfolio_cagr = cagr(
     growth
 )
 
+corr = correlation_matrix(
+    returns
+)
+
 print("Portfolio Sharpe Ratio:")
 print(portfolio_sr)
 
@@ -62,6 +69,29 @@ print(f"{mdd:.2%}")
 
 print("\nCAGR:")
 print(f"{portfolio_cagr:.2%}")
+
+print("\nCorrelation Matrix:")
+print(corr)
+
+plt.figure(figsize=(6, 5))
+
+plt.imshow(corr)
+
+plt.colorbar()
+
+plt.xticks(
+    range(len(corr.columns)),
+    corr.columns
+)
+
+plt.yticks(
+    range(len(corr.columns)),
+    corr.columns
+)
+
+plt.title("Correlation Matrix")
+
+plt.show()
 
 plt.figure(figsize=(12, 5))
 

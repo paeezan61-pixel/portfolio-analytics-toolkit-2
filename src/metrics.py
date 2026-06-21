@@ -27,3 +27,7 @@ def cagr(growth):
         growth.iloc[-1]
         ** (1 / years)
     ) - 1
+
+def correlation_matrix(returns):
+    return returns.corr()
+
