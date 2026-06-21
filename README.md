@@ -1,6 +1,6 @@
 # Portfolio Analytics Toolkit
 
-An open-source Python project for portfolio analysis, risk measurement, and investment performance evaluation.
+Portfolio Analytics Toolkit is an open-source Python project for portfolio performance analysis, risk measurement, benchmark comparison, and investment analytics.
 
 This project was built to learn quantitative finance, portfolio analytics, Git, GitHub workflows, automated testing, and open-source software development.
 
@@ -8,15 +8,33 @@ This project was built to learn quantitative finance, portfolio analytics, Git, 
 
 ## Features
 
+
+## Screenshots
+
+### Portfolio vs Benchmark
+
+![Portfolio vs Benchmark](docs/images/portfolio-vs-benchmark.png)
+
+### Correlation Heatmap
+
+![Correlation Heatmap](docs/images/correlation-heatmap.png)
+
+### Asset Allocation
+
+![Asset Allocation](docs/images/allocation-chart.png)
+
 ### Portfolio Analytics
 
-* Daily return calculation
-* Portfolio return aggregation
-* Compound Annual Growth Rate (CAGR)
+* Daily Returns
+* Portfolio Returns
+* CAGR
 * Sharpe Ratio
-* Annualized Volatility
+* Volatility
 * Maximum Drawdown
 * Correlation Matrix
+* Benchmark Comparison
+* Beta
+* Alpha
 
 ### Visualizations
 
@@ -83,7 +101,10 @@ Example metrics:
 Portfolio Sharpe Ratio: 1.24
 Annualized Volatility: 15.16%
 Maximum Drawdown: -16.11%
-CAGR: 19.36%
+Portfolio CAGR: 19.36%
+Benchmark CAGR: 14.82%
+Portfolio Beta: 1.05
+Portfolio Alpha: 3.20%
 ```
 
 ---
@@ -117,8 +138,6 @@ PortfolioAnalyticsToolkit
 
 Planned future features:
 
-* Benchmark comparison
-* Alpha and Beta calculations
 * Information Ratio
 * Portfolio optimization
 * ETF analytics
