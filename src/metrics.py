@@ -15,3 +15,6 @@ def max_drawdown(growth):
     ) / running_max
 
     return drawdown.min()
+
+def volatility(returns):
+    return returns.std() * (252 ** 0.5)

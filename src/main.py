@@ -5,7 +5,8 @@ from data_loader import download_prices
 from metrics import (
     daily_returns,
     sharpe_ratio,
-    max_drawdown
+    max_drawdown,
+    volatility
 )
 
 from portfolio import (
@@ -37,9 +38,19 @@ growth = portfolio_growth(
 mdd = max_drawdown(
     growth
 )
+portfolio_sr = sharpe_ratio(
+    portfolio_ret
+)
+
+portfolio_vol = volatility(
+    portfolio_ret
+)
 
 print("Portfolio Sharpe Ratio:")
 print(portfolio_sr)
+
+print("\nAnnualized Volatility:")
+print(f"{portfolio_vol:.2%}")
 
 print("\nMaximum Drawdown:")
 print(f"{mdd:.2%}")
