@@ -21,9 +21,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install pytest
-          pip install pandas
-          pip install yfinance
+          pip install -r requirements.txt
 
       - name: Run tests
         run: |
