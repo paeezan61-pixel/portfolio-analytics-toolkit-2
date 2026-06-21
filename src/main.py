@@ -1,6 +1,11 @@
+import matplotlib.pyplot as plt
+
 from data_loader import download_prices
 from metrics import daily_returns, sharpe_ratio
-from portfolio import portfolio_returns
+from portfolio import (
+    portfolio_returns,
+    portfolio_growth
+)
 
 tickers = ["AAPL", "MSFT", "SPY"]
 
@@ -15,7 +20,18 @@ portfolio_ret = portfolio_returns(
     weights
 )
 
-portfolio_sr = sharpe_ratio(portfolio_ret)
+portfolio_sr = sharpe_ratio(
+    portfolio_ret
+)
+
+growth = portfolio_growth(
+    portfolio_ret
+)
 
 print("Portfolio Sharpe Ratio:")
 print(portfolio_sr)
+
+growth.plot()
+
+plt.title("Portfolio Growth")
+plt.show()
