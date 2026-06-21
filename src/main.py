@@ -63,8 +63,19 @@ print(f"{mdd:.2%}")
 print("\nCAGR:")
 print(f"{portfolio_cagr:.2%}")
 
+plt.figure(figsize=(12, 5))
+
+plt.subplot(1, 2, 1)
 growth.plot()
-
 plt.title("Portfolio Growth")
-plt.show()
 
+plt.subplot(1, 2, 2)
+plt.pie(
+    weights,
+    labels=tickers,
+    autopct="%1.1f%%"
+)
+plt.title("Portfolio Allocation")
+
+plt.tight_layout()
+plt.show()
