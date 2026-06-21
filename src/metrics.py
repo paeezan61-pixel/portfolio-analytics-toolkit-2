@@ -31,3 +31,9 @@ def cagr(growth):
 def correlation_matrix(returns):
     return returns.corr()
 
+def beta(portfolio_returns, benchmark_returns):
+    return (
+        portfolio_returns.cov(benchmark_returns)
+        /
+        benchmark_returns.var()
+    )
