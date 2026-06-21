@@ -7,18 +7,6 @@ def portfolio_returns(returns, weights):
     return portfolio_return
 
 
-import pandas as pd
-
-
-def portfolio_returns(returns, weights):
-
-    portfolio_return = (
-        returns * weights
-    ).sum(axis=1)
-
-    return portfolio_return
-
-
 def portfolio_growth(portfolio_returns):
 
     growth = (

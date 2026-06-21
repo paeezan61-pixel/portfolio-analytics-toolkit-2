@@ -1,7 +1,13 @@
 import matplotlib.pyplot as plt
 
 from data_loader import download_prices
-from metrics import daily_returns, sharpe_ratio
+
+from metrics import (
+    daily_returns,
+    sharpe_ratio,
+    max_drawdown
+)
+
 from portfolio import (
     portfolio_returns,
     portfolio_growth
@@ -28,8 +34,15 @@ growth = portfolio_growth(
     portfolio_ret
 )
 
+mdd = max_drawdown(
+    growth
+)
+
 print("Portfolio Sharpe Ratio:")
 print(portfolio_sr)
+
+print("\nMaximum Drawdown:")
+print(f"{mdd:.2%}")
 
 growth.plot()
 
