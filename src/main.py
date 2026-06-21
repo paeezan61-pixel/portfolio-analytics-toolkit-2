@@ -1,12 +1,21 @@
 from data_loader import download_prices
 from metrics import daily_returns, sharpe_ratio
+from portfolio import portfolio_returns
 
-data = download_prices("AAPL")
+tickers = ["AAPL", "MSFT", "SPY"]
 
-returns = daily_returns(data["Close"])
+weights = [0.4, 0.3, 0.3]
 
-print("Latest Returns:")
-print(returns.tail())
+prices = download_prices(tickers)
 
-print("\nSharpe Ratio:")
-print(sharpe_ratio(returns))
+returns = daily_returns(prices)
+
+portfolio_ret = portfolio_returns(
+    returns,
+    weights
+)
+
+portfolio_sr = sharpe_ratio(portfolio_ret)
+
+print("Portfolio Sharpe Ratio:")
+print(portfolio_sr)
