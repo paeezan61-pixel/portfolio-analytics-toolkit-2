@@ -20,11 +20,23 @@ from portfolio import (
 
 tickers = ["AAPL", "MSFT", "SPY"]
 
+benchmark = "SPY"
+
 weights = [0.4, 0.3, 0.3]
 
+
 prices = download_prices(tickers)
+benchmark_prices = download_prices(
+    benchmark
+)
+
+benchmark_prices = benchmark_prices.squeeze()
 
 returns = daily_returns(prices)
+
+benchmark_returns = daily_returns(
+    benchmark_prices
+)
 
 portfolio_ret = portfolio_returns(
     returns,
@@ -37,6 +49,10 @@ portfolio_sr = sharpe_ratio(
 
 growth = portfolio_growth(
     portfolio_ret
+)
+
+benchmark_growth = portfolio_growth(
+    benchmark_returns
 )
 
 mdd = max_drawdown(
@@ -52,6 +68,11 @@ portfolio_vol = volatility(
 
 portfolio_cagr = cagr(
     growth
+)
+
+
+benchmark_cagr = cagr(
+    benchmark_growth
 )
 
 corr = correlation_matrix(
@@ -72,6 +93,9 @@ print(f"{portfolio_cagr:.2%}")
 
 print("\nCorrelation Matrix:")
 print(corr)
+
+print("\nBenchmark CAGR:")
+print(f"{benchmark_cagr:.2%}")
 
 plt.figure(figsize=(6, 5))
 
