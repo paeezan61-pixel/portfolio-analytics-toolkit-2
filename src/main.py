@@ -1,9 +1,5 @@
-from metrics import cagr
+from data_loader import download_prices
 
-portfolio_start = 10000
-portfolio_end = 15000
-years = 3
+data = download_prices("AAPL")
 
-result = cagr(portfolio_start, portfolio_end, years)
-
-print(f"CAGR: {result:.2%}")
+print(data.tail())
