@@ -18,3 +18,12 @@ def max_drawdown(growth):
 
 def volatility(returns):
     return returns.std() * (252 ** 0.5)
+
+def cagr(growth):
+
+    years = len(growth) / 252
+
+    return (
+        growth.iloc[-1]
+        ** (1 / years)
+    ) - 1

@@ -6,7 +6,8 @@ from metrics import (
     daily_returns,
     sharpe_ratio,
     max_drawdown,
-    volatility
+    volatility,
+    cagr
 )
 
 from portfolio import (
@@ -46,6 +47,10 @@ portfolio_vol = volatility(
     portfolio_ret
 )
 
+portfolio_cagr = cagr(
+    growth
+)
+
 print("Portfolio Sharpe Ratio:")
 print(portfolio_sr)
 
@@ -55,7 +60,11 @@ print(f"{portfolio_vol:.2%}")
 print("\nMaximum Drawdown:")
 print(f"{mdd:.2%}")
 
+print("\nCAGR:")
+print(f"{portfolio_cagr:.2%}")
+
 growth.plot()
 
 plt.title("Portfolio Growth")
 plt.show()
+
