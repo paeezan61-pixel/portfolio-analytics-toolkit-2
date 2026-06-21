@@ -1,12 +1,111 @@
+import matplotlib.pyplot as plt
+
+import matplotlib.pyplot as plt
+
 from data_loader import download_prices
-from metrics import daily_returns, sharpe_ratio
 
-data = download_prices("AAPL")
+from metrics import (
+    daily_returns,
+    sharpe_ratio,
+    max_drawdown,
+    volatility,
+    cagr,
+    correlation_matrix
+)
 
-returns = daily_returns(data["Close"])
+from portfolio import (
+    portfolio_returns,
+    portfolio_growth
+)
 
-print("Latest Returns:")
-print(returns.tail())
+tickers = ["AAPL", "MSFT", "SPY"]
 
-print("\nSharpe Ratio:")
-print(sharpe_ratio(returns))
+weights = [0.4, 0.3, 0.3]
+
+prices = download_prices(tickers)
+
+returns = daily_returns(prices)
+
+portfolio_ret = portfolio_returns(
+    returns,
+    weights
+)
+
+portfolio_sr = sharpe_ratio(
+    portfolio_ret
+)
+
+growth = portfolio_growth(
+    portfolio_ret
+)
+
+mdd = max_drawdown(
+    growth
+)
+portfolio_sr = sharpe_ratio(
+    portfolio_ret
+)
+
+portfolio_vol = volatility(
+    portfolio_ret
+)
+
+portfolio_cagr = cagr(
+    growth
+)
+
+corr = correlation_matrix(
+    returns
+)
+
+print("Portfolio Sharpe Ratio:")
+print(portfolio_sr)
+
+print("\nAnnualized Volatility:")
+print(f"{portfolio_vol:.2%}")
+
+print("\nMaximum Drawdown:")
+print(f"{mdd:.2%}")
+
+print("\nCAGR:")
+print(f"{portfolio_cagr:.2%}")
+
+print("\nCorrelation Matrix:")
+print(corr)
+
+plt.figure(figsize=(6, 5))
+
+plt.imshow(corr)
+
+plt.colorbar()
+
+plt.xticks(
+    range(len(corr.columns)),
+    corr.columns
+)
+
+plt.yticks(
+    range(len(corr.columns)),
+    corr.columns
+)
+
+plt.title("Correlation Matrix")
+
+plt.show()
+
+plt.figure(figsize=(12, 5))
+
+plt.subplot(1, 2, 1)
+growth.plot()
+plt.title("Portfolio Growth")
+
+plt.subplot(1, 2, 2)
+plt.pie(
+    weights,
+    labels=tickers,
+    autopct="%1.1f%%"
+)
+plt.title("Portfolio Allocation")
+
+plt.tight_layout()
+plt.show()
