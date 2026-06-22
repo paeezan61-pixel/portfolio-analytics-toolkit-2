@@ -1,7 +1,10 @@
 import numpy as np
+import pandas as pd
 
 from src.optimization import (
-    portfolio_performance
+    portfolio_performance,
+    random_portfolios,
+    efficient_frontier
 )
 
 
@@ -56,6 +59,27 @@ def test_random_portfolios():
             100,
             mean_returns,
             covariance
+        )
+    )
+
+    assert len(results) == 100
+
+    assert len(weights) == 100
+
+
+def test_efficient_frontier():
+
+    returns = pd.DataFrame(
+        {
+            "A": [0.01, 0.02, 0.03],
+            "B": [0.02, 0.01, 0.03]
+        }
+    )
+
+    results, weights = (
+        efficient_frontier(
+            returns,
+            100
         )
     )
 

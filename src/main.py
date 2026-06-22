@@ -20,9 +20,15 @@ from portfolio import (
     portfolio_growth
 )
 
+
+from optimization import (
+    efficient_frontier
+)
 # -----------------------------------
 # Portfolio Setup
 # -----------------------------------
+
+
 
 tickers = ["AAPL", "MSFT", "SPY"]
 
@@ -97,6 +103,13 @@ corr = correlation_matrix(
     returns
 )
 
+
+frontier_results, frontier_weights = (
+    efficient_frontier(
+        returns,
+        5000
+    )
+)
 # -----------------------------------
 # Benchmark Analytics
 # -----------------------------------
@@ -236,5 +249,32 @@ plt.savefig(
 )
 
 plt.tight_layout()
+
+plt.show()
+
+plt.figure(figsize=(8, 6))
+
+plt.scatter(
+    frontier_results[:, 1],
+    frontier_results[:, 0],
+    c=frontier_results[:, 2]
+)
+
+plt.xlabel("Volatility")
+
+plt.ylabel("Return")
+
+plt.title(
+    "Efficient Frontier"
+)
+
+plt.colorbar(
+    label="Sharpe Ratio"
+)
+
+plt.savefig(
+    "docs/images/efficient-frontier.png",
+    bbox_inches="tight"
+)
 
 plt.show()

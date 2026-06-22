@@ -88,3 +88,22 @@ def random_portfolios(
         np.array(results),
         weights_record
     )
+
+
+def efficient_frontier(
+    returns,
+    num_portfolios=5000,
+    risk_free_rate=0
+):
+    mean_returns = returns.mean()
+
+    covariance_matrix = returns.cov()
+
+    results, weights = random_portfolios(
+        num_portfolios,
+        mean_returns,
+        covariance_matrix,
+        risk_free_rate
+    )
+
+    return results, weights
