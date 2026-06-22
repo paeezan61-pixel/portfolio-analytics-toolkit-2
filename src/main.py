@@ -8,7 +8,11 @@ from metrics import (
     max_drawdown,
     volatility,
     cagr,
-    correlation_matrix
+    correlation_matrix,
+    beta,
+    alpha,
+    tracking_error,
+    information_ratio
 )
 
 from portfolio import (
@@ -16,19 +20,31 @@ from portfolio import (
     portfolio_growth
 )
 
+# -----------------------------------
+# Portfolio Setup
+# -----------------------------------
+
 tickers = ["AAPL", "MSFT", "SPY"]
 
 benchmark = "SPY"
 
 weights = [0.4, 0.3, 0.3]
 
+# -----------------------------------
+# Download Data
+# -----------------------------------
 
 prices = download_prices(tickers)
+
 benchmark_prices = download_prices(
     benchmark
 )
 
 benchmark_prices = benchmark_prices.squeeze()
+
+# -----------------------------------
+# Returns
+# -----------------------------------
 
 returns = daily_returns(prices)
 
@@ -41,9 +57,9 @@ portfolio_ret = portfolio_returns(
     weights
 )
 
-portfolio_sr = sharpe_ratio(
-    portfolio_ret
-)
+# -----------------------------------
+# Growth Curves
+# -----------------------------------
 
 growth = portfolio_growth(
     portfolio_ret
@@ -53,19 +69,25 @@ benchmark_growth = portfolio_growth(
     benchmark_returns
 )
 
-mdd = max_drawdown(
-    growth
-)
+# -----------------------------------
+# Core Metrics
+# -----------------------------------
 
+portfolio_sr = sharpe_ratio(
+    portfolio_ret
+)
 
 portfolio_vol = volatility(
     portfolio_ret
 )
 
-portfolio_cagr = cagr(
+mdd = max_drawdown(
     growth
 )
 
+portfolio_cagr = cagr(
+    growth
+)
 
 benchmark_cagr = cagr(
     benchmark_growth
@@ -75,8 +97,39 @@ corr = correlation_matrix(
     returns
 )
 
+# -----------------------------------
+# Benchmark Analytics
+# -----------------------------------
+
+portfolio_beta = beta(
+    portfolio_ret,
+    benchmark_returns
+)
+
+portfolio_alpha = alpha(
+    portfolio_cagr,
+    benchmark_cagr,
+    portfolio_beta
+)
+
+portfolio_tracking_error = tracking_error(
+    portfolio_ret,
+    benchmark_returns
+)
+
+portfolio_information_ratio = (
+    information_ratio(
+        portfolio_ret,
+        benchmark_returns
+    )
+)
+
+# -----------------------------------
+# Console Output
+# -----------------------------------
+
 print("Portfolio Sharpe Ratio:")
-print(portfolio_sr)
+print(f"{portfolio_sr:.2f}")
 
 print("\nAnnualized Volatility:")
 print(f"{portfolio_vol:.2%}")
@@ -87,20 +140,31 @@ print(f"{mdd:.2%}")
 print("\nPortfolio CAGR:")
 print(f"{portfolio_cagr:.2%}")
 
+print("\nBenchmark CAGR:")
+print(f"{benchmark_cagr:.2%}")
+
+print("\nPortfolio Beta:")
+print(f"{portfolio_beta:.2f}")
+
+print("\nPortfolio Alpha:")
+print(f"{portfolio_alpha:.2%}")
+
+print("\nTracking Error:")
+print(f"{portfolio_tracking_error:.2%}")
+
+print("\nInformation Ratio:")
+print(f"{portfolio_information_ratio:.2f}")
+
 print("\nCorrelation Matrix:")
 print(corr)
 
-print("\nBenchmark CAGR:")
-print(f"{benchmark_cagr:.2%}")
+# -----------------------------------
+# Correlation Heatmap
+# -----------------------------------
 
 plt.figure(figsize=(6, 5))
 
 plt.imshow(corr)
-
-plt.savefig(
-    "docs/images/correlation-heatmap.png",
-    bbox_inches="tight"
-)
 
 plt.colorbar()
 
@@ -116,7 +180,16 @@ plt.yticks(
 
 plt.title("Correlation Matrix")
 
+plt.savefig(
+    "docs/images/correlation-heatmap.png",
+    bbox_inches="tight"
+)
+
 plt.show()
+
+# -----------------------------------
+# Portfolio vs Benchmark
+# -----------------------------------
 
 plt.figure(figsize=(12, 5))
 
@@ -135,6 +208,7 @@ plt.plot(
 )
 
 plt.title("Portfolio vs Benchmark")
+
 plt.legend()
 
 plt.savefig(
@@ -142,19 +216,25 @@ plt.savefig(
     bbox_inches="tight"
 )
 
+# -----------------------------------
+# Asset Allocation Pie Chart
+# -----------------------------------
+
 plt.subplot(1, 2, 2)
+
 plt.pie(
     weights,
     labels=tickers,
     autopct="%1.1f%%"
 )
 
+plt.title("Portfolio Allocation")
+
 plt.savefig(
     "docs/images/allocation-chart.png",
     bbox_inches="tight"
 )
 
-plt.title("Portfolio Allocation")
-
 plt.tight_layout()
+
 plt.show()

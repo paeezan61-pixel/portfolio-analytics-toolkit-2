@@ -1,6 +1,10 @@
+import pytest
 import pandas as pd
 
-from src.portfolio import portfolio_returns
+from src.portfolio import (
+    portfolio_returns,
+    portfolio_growth
+)
 
 
 def test_portfolio_returns():
@@ -28,3 +32,19 @@ def test_portfolio_returns():
         expected,
         check_names=False
     )
+
+def test_portfolio_growth():
+
+    returns = pd.Series(
+        [0.10, 0.10]
+    )
+
+    growth = portfolio_growth(
+        returns
+    )
+
+    assert growth.iloc[-1] == pytest.approx(
+        1.21
+    )
+
+
