@@ -1,8 +1,8 @@
-# Portfolio Analytics Toolkit
+# Portfolio Analytics and Optimization Toolkit
 
-An open-source Python project for portfolio analysis, risk measurement, and investment performance evaluation.
+An open-source Python project for portfolio analytics, risk measurement, performance attribution, and portfolio optimization.
 
-This project was built to learn quantitative finance, portfolio analytics, Git, GitHub workflows, automated testing, and open-source software development.
+This project was built to develop practical skills in quantitative finance, portfolio management, Python development, Git/GitHub workflows, automated testing, continuous integration, and open-source software engineering.
 
 ---
 
@@ -10,26 +10,65 @@ This project was built to learn quantitative finance, portfolio analytics, Git, 
 
 ### Portfolio Analytics
 
-* Daily return calculation
-* Portfolio return aggregation
+* Daily Return Calculation
+* Portfolio Return Aggregation
+* Portfolio Growth Tracking
 * Compound Annual Growth Rate (CAGR)
 * Sharpe Ratio
 * Annualized Volatility
 * Maximum Drawdown
 * Correlation Matrix
 
+### Benchmark Analytics
+
+* Benchmark Comparison
+* Beta
+* Alpha
+* Tracking Error
+* Information Ratio
+
+### Portfolio Optimization
+
+* Portfolio Performance Estimation
+* Random Portfolio Simulation
+* Efficient Frontier Generation
+* Maximum Sharpe Portfolio
+* Minimum Volatility Portfolio
+
 ### Visualizations
 
-* Portfolio Growth Chart
+* Portfolio vs Benchmark Chart
 * Asset Allocation Pie Chart
 * Correlation Heatmap
+* Efficient Frontier Visualization
 
 ### Software Engineering
 
-* Unit testing with pytest
-* Automated CI testing with GitHub Actions
-* Feature branch workflow
-* Pull request workflow
+* Unit Testing with pytest
+* Continuous Integration with GitHub Actions
+* Feature Branch Workflow
+* Pull Request Workflow
+* Version Control with Git
+
+---
+
+## Screenshots
+
+### Portfolio vs Benchmark
+
+![Portfolio vs Benchmark](docs/images/portfolio-vs-benchmark.png)
+
+### Asset Allocation
+
+![Asset Allocation](docs/images/allocation-chart.png)
+
+### Correlation Heatmap
+
+![Correlation Heatmap](docs/images/correlation-heatmap.png)
+
+### Efficient Frontier
+
+![Efficient Frontier](docs/images/efficient-frontier.png)
 
 ---
 
@@ -41,6 +80,8 @@ This project was built to learn quantitative finance, portfolio analytics, Git, 
 * Matplotlib
 * yfinance
 * pytest
+* Git
+* GitHub
 * GitHub Actions
 
 ---
@@ -74,16 +115,33 @@ Example portfolio:
 
 ```python
 tickers = ["AAPL", "MSFT", "SPY"]
+
 weights = [0.4, 0.3, 0.3]
 ```
 
-Example metrics:
+Example output:
 
 ```text
-Portfolio Sharpe Ratio: 1.24
+Portfolio Sharpe Ratio: 1.13
 Annualized Volatility: 15.16%
 Maximum Drawdown: -16.11%
-CAGR: 19.36%
+Portfolio CAGR: 17.39%
+
+Portfolio Beta: 0.92
+Portfolio Alpha: -6.38%
+
+Tracking Error: 9.96%
+Information Ratio: -0.65
+
+Maximum Sharpe Portfolio
+Return: 28.81%
+Volatility: 13.24%
+Sharpe Ratio: 2.18
+
+Minimum Volatility Portfolio
+Return: 23.15%
+Volatility: 12.37%
+Sharpe Ratio: 1.87
 ```
 
 ---
@@ -97,43 +155,93 @@ PortfolioAnalyticsToolkit
 │   ├── data_loader.py
 │   ├── metrics.py
 │   ├── portfolio.py
+│   ├── optimization.py
 │   └── main.py
 │
 ├── tests
 │   ├── test_metrics.py
-│   └── test_portfolio.py
+│   ├── test_portfolio.py
+│   └── test_optimization.py
+│
+├── docs
+│   └── images
+│
+├── .github
+│   └── workflows
+│       └── python-tests.yml
 │
 ├── README.md
 ├── CHANGELOG.md
 ├── ROADMAP.md
-├── requirements.txt
-└── .github
-    └── workflows
+├── LICENSE
+└── requirements.txt
+```
+
+---
+
+## Testing
+
+Run the test suite:
+
+```bash
+python -m pytest
+```
+
+Current status:
+
+```text
+16 passing tests
+```
+
+---
+
+## Continuous Integration
+
+GitHub Actions automatically runs the test suite on:
+
+* Pushes
+* Pull Requests
+
+Workflow file:
+
+```text
+.github/workflows/python-tests.yml
 ```
 
 ---
 
 ## Roadmap
 
-Planned future features:
+Planned future enhancements:
 
-* Benchmark comparison
-* Alpha and Beta calculations
-* Information Ratio
-* Portfolio optimization
-* ETF analytics
-* Additional automated testing
-* Enhanced visual reporting
+* Portfolio Optimization Enhancements
+* Asset Class Analytics
+* Risk Attribution
+* Factor Analysis
+* Monte Carlo Simulation
+* Portfolio Rebalancing Engine
+* ETF Analytics
+* Coverage Reporting
+* Package Distribution via PyPI
 
 ---
 
-## Learning Goals
+## Learning Objectives
 
-This repository is part of a broader effort to develop practical skills in:
+This repository is part of an ongoing effort to develop practical experience in:
 
 * Portfolio Management
-* Financial Analytics
-* Python Development
-* Git and GitHub
-* Open Source Software Development
+* Investment Analysis
 * Quantitative Finance
+* Portfolio Optimization
+* Python Development
+* Software Testing
+* Git and GitHub
+* Continuous Integration
+* Open Source Software Development
+
+---
+
+## License
+
+This project is licensed under the MIT License.
