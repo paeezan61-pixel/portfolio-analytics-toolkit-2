@@ -48,3 +48,35 @@ def alpha(
         - beta * benchmark_cagr
     )
 
+
+
+
+
+def tracking_error(
+    portfolio_returns,
+    benchmark_returns
+):
+    active_returns = (
+        portfolio_returns
+        - benchmark_returns
+    )
+
+    return (
+        active_returns.std()
+        * (252 ** 0.5)
+    )
+
+
+def information_ratio(
+    portfolio_returns,
+    benchmark_returns
+):
+    active_returns = (
+        portfolio_returns
+        - benchmark_returns
+    )
+
+    return (
+        active_returns.mean()
+        / active_returns.std()
+    ) * (252 ** 0.5)

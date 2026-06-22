@@ -3,13 +3,16 @@ import pandas as pd
 
 from src.metrics import (
     daily_returns,
+    sharpe_ratio,
+    volatility,
+    max_drawdown,
+    cagr,
+    correlation_matrix,
     beta,
     alpha,
-    volatility,
-    cagr,
-    max_drawdown
+    tracking_error,
+    information_ratio
 )
-
 
 def test_daily_returns():
 
@@ -98,3 +101,74 @@ def test_max_drawdown():
     )
 
     assert result < 0
+
+    def test_tracking_error():
+
+        portfolio = pd.Series(
+        [0.02, 0.01, -0.01, 0.03]
+    )
+
+        benchmark = pd.Series(
+        [0.01, 0.01, -0.02, 0.02]
+    )
+
+        result = tracking_error(
+        portfolio,
+        benchmark
+    )
+
+        assert result > 0
+
+
+def test_information_ratio():
+
+    portfolio = pd.Series(
+        [0.02, 0.01, -0.01, 0.03]
+    )
+
+    benchmark = pd.Series(
+        [0.01, 0.01, -0.02, 0.02]
+    )
+
+    result = information_ratio(
+        portfolio,
+        benchmark
+    )
+
+    assert result > 0
+
+def test_correlation_matrix():
+
+    returns = pd.DataFrame(
+        {
+            "A": [0.01, 0.02, 0.03],
+            "B": [0.01, 0.02, 0.03]
+        }
+    )
+
+    corr = correlation_matrix(
+        returns
+    )
+
+    assert corr.loc["A", "B"] == 1.0
+
+
+
+def test_beta_positive():
+
+    portfolio = pd.Series(
+        [0.02, 0.01, -0.01, 0.03]
+    )
+
+    benchmark = pd.Series(
+        [0.01, 0.01, -0.02, 0.02]
+    )
+
+    result = beta(
+        portfolio,
+        benchmark
+    )
+
+    assert result > 0
+
+
