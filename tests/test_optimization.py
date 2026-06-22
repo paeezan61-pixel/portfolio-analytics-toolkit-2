@@ -4,8 +4,11 @@ import pandas as pd
 from src.optimization import (
     portfolio_performance,
     random_portfolios,
-    efficient_frontier
+    efficient_frontier,
+    maximum_sharpe_portfolio,
+    minimum_volatility_portfolio
 )
+
 
 
 def test_portfolio_performance():
@@ -86,3 +89,55 @@ def test_efficient_frontier():
     assert len(results) == 100
 
     assert len(weights) == 100
+
+
+def test_maximum_sharpe_portfolio():
+
+    results = np.array(
+        [
+            [0.10, 0.15, 0.50],
+            [0.12, 0.18, 0.70],
+            [0.09, 0.12, 0.40]
+        ]
+    )
+
+    weights = [
+        [0.4, 0.6],
+        [0.5, 0.5],
+        [0.3, 0.7]
+    ]
+
+    portfolio, weight = (
+        maximum_sharpe_portfolio(
+            results,
+            weights
+        )
+    )
+
+    assert portfolio[2] == 0.70
+
+def test_minimum_volatility_portfolio():
+
+    results = np.array(
+        [
+            [0.10, 0.15, 0.50],
+            [0.12, 0.18, 0.70],
+            [0.09, 0.10, 0.40]
+        ]
+    )
+
+    weights = [
+        [0.4, 0.6],
+        [0.5, 0.5],
+        [0.3, 0.7]
+    ]
+
+    portfolio, weight = (
+        minimum_volatility_portfolio(
+            results,
+            weights
+        )
+    )
+
+    assert portfolio[1] == 0.10
+

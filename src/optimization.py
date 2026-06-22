@@ -107,3 +107,33 @@ def efficient_frontier(
     )
 
     return results, weights
+
+
+def maximum_sharpe_portfolio(
+    results,
+    weights
+):
+    max_index = np.argmax(
+        results[:, 2]
+    )
+
+    return (
+        results[max_index],
+        weights[max_index]
+    )
+
+
+def minimum_volatility_portfolio(
+    results,
+    weights
+):
+    min_index = np.argmin(
+        results[:, 1]
+    )
+
+    return (
+        results[min_index],
+        weights[min_index]
+    )
+
+

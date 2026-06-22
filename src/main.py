@@ -22,7 +22,9 @@ from portfolio import (
 
 
 from optimization import (
-    efficient_frontier
+    efficient_frontier,
+    maximum_sharpe_portfolio,
+    minimum_volatility_portfolio
 )
 # -----------------------------------
 # Portfolio Setup
@@ -110,6 +112,23 @@ frontier_results, frontier_weights = (
         5000
     )
 )
+
+max_sharpe, max_weights = (
+    maximum_sharpe_portfolio(
+        frontier_results,
+        frontier_weights
+    )
+)
+
+min_vol, min_weights = (
+    minimum_volatility_portfolio(
+        frontier_results,
+        frontier_weights
+    )
+)
+
+
+
 # -----------------------------------
 # Benchmark Analytics
 # -----------------------------------
@@ -168,8 +187,46 @@ print(f"{portfolio_tracking_error:.2%}")
 print("\nInformation Ratio:")
 print(f"{portfolio_information_ratio:.2f}")
 
+print("\nMaximum Sharpe Portfolio")
+
+print(
+    f"Return: {max_sharpe[0]:.2%}"
+)
+
+print(
+    f"Volatility: {max_sharpe[1]:.2%}"
+)
+
+print(
+    f"Sharpe Ratio: {max_sharpe[2]:.2f}"
+)
+
+print(
+    f"Weights: {max_weights}"
+)
+
+print("\nMinimum Volatility Portfolio")
+
+print(
+    f"Return: {min_vol[0]:.2%}"
+)
+
+print(
+    f"Volatility: {min_vol[1]:.2%}"
+)
+
+print(
+    f"Sharpe Ratio: {min_vol[2]:.2f}"
+)
+
+print(
+    f"Weights: {min_weights}"
+)
+
 print("\nCorrelation Matrix:")
 print(corr)
+
+
 
 # -----------------------------------
 # Correlation Heatmap
@@ -260,6 +317,22 @@ plt.scatter(
     c=frontier_results[:, 2]
 )
 
+plt.scatter(
+    max_sharpe[1],
+    max_sharpe[0],
+    marker="*",
+    s=300,
+    label="Max Sharpe"
+)
+
+plt.scatter(
+    min_vol[1],
+    min_vol[0],
+    marker="o",
+    s=200,
+    label="Min Volatility"
+)
+
 plt.xlabel("Volatility")
 
 plt.ylabel("Return")
@@ -267,6 +340,8 @@ plt.ylabel("Return")
 plt.title(
     "Efficient Frontier"
 )
+
+plt.legend()
 
 plt.colorbar(
     label="Sharpe Ratio"
@@ -278,3 +353,4 @@ plt.savefig(
 )
 
 plt.show()
+
